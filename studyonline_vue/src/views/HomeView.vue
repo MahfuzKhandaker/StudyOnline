@@ -45,6 +45,16 @@
               <p>This is just some random placeholder text</p>
             </div>
           </div>
+
+          <hr>
+
+          <div 
+              class="column is-3"
+              v-for="course in courses"
+              v-bind:key="course.id"
+          >
+              <CourseItem :course="course" />
+          </div>
         </div>
       </div>
     </section>
@@ -52,10 +62,33 @@
 </template>
 
 <script>
-// @ is an alias to /src
+import axios from 'axios'
+
+import CourseItem from '@/components/CourseItem.vue'
 
 export default {
   name: "HomeView",
-  components: {},
+  data() {
+    return {
+      courses: []
+    }
+
+  },
+  components: {
+    CourseItem
+  },
+  mounted() {
+      console.log('mounted')
+
+      document.title = 'Welcome | StudyOnline'
+
+      axios
+          .get('courses/get_frontpage_courses/')
+          .then(response => {
+              console.log(response.data)
+
+              this.courses = response.data
+          })
+  }
 };
 </script>

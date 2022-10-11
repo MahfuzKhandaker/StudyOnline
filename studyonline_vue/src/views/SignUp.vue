@@ -94,7 +94,7 @@ import axios from 'axios';
           }
 
           axios
-          .post('/api/v1/users/', formData)
+          .post('users/', formData)
           .then(response => {
             this.$router.push('/log-in')
             return response
